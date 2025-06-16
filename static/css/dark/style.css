@@ -717,6 +717,61 @@ body {
   .resume-box li span {
     font-size: 12px; }
 
+.download-cv-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #f71735;
+  color: white;
+  padding: 12px 20px;
+  font-weight: 600;
+  border-radius: 30px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+  text-decoration: none;
+  z-index: 9999;
+  transition: background-color 0.5s ease, transform 0.3s ease;
+  opacity: 0;
+  transform: translateY(100px);
+  animation: slideUpFadeIn 1s ease-out forwards;
+  animation-delay: 1s;
+}
+
+/* Animation keyframes */
+@keyframes slideUpFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.download-cv-btn:hover {
+  background-color: #ffffff;
+  color: black;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .download-cv-btn {
+    padding: 10px 16px;
+    font-size: 14px;
+    bottom: 15px;
+    right: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .download-cv-btn {
+    padding: 8px 14px;
+    font-size: 13px;
+    bottom: 12px;
+    right: 12px;
+  }
+}
+
 /* Portfolio
 ---------------------*/
 .portfolio-box {
