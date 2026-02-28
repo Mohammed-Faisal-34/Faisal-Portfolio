@@ -21,6 +21,35 @@
 @import url(../../plugin/owl-carousel/css/owl.carousel.min.css);
 @import url(../../plugin/magnific/magnific-popup.css);
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&amp;display=swap");
+
+/* Custom Scrollbar for Webkit (Chrome, Edge, Safari)
+-------------------------------------------------*/
+::-webkit-scrollbar {
+  width: 8px; /* Thinner, more elegant width */
+  height: 8px; /* For horizontal scrollbars if needed */
+}
+
+::-webkit-scrollbar-track {
+  background: #011627; /* Matches your dark blue background */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #f71735; /* Your signature red */
+  border-radius: 4px; /* Professional rounded edges */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d6152e; /* Slightly darker red on hover for interactive feedback */
+}
+
+/* Custom Scrollbar for Firefox 
+-------------------------------------------------*/
+html {
+  scrollbar-width: thin; 
+  scrollbar-color: #f71735 #011627; /* Thumb color, Track color */
+}
+
 .navbar-toggler,
 .toggler-menu {
   width: 40px;
@@ -816,6 +845,31 @@ body {
       margin: 0 5px 5px 0; }
       .portfolio-box .portfolio-info .nav span:hover {
         border-color: rgba(255, 255, 255, 0.3); }
+
+      /* Portfolio Category Headings
+---------------------*/
+.category-heading {
+  font-size: 24px;
+  font-weight: 600;
+  color: #fff;
+  position: relative;
+  padding-bottom: 12px;
+  margin-top: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Creates the red accent line under the category titles */
+.category-heading::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 60px;
+  height: 3px;
+  background: #f71735; 
+  border-radius: 2px;
+}
 
 /* Testimonial
 ---------------------*/
