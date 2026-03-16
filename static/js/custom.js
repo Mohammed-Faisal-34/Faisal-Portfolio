@@ -285,3 +285,91 @@
 
 
 })(jQuery);
+
+$(document).ready(function() {
+    // 1. When ANY 'View Certificate' button is clicked
+    $('.cert-btn').on('click', function(e) {
+        e.preventDefault(); // Stops the page from jumping to the top
+
+        // Find the image inside the EXACT card that was clicked
+        var imgSrc = $(this).closest('.cert-card').find('img').attr('src');
+        
+        // Put that image source into the popup modal
+        $('#certModalImg').attr('src', imgSrc);
+        
+        // Show the modal (using flex so it stays centered)
+        $('#certModal').css('display', 'flex');
+    });
+
+    // 2. When the 'X' close button is clicked
+    $('.cert-modal-close').on('click', function() {
+        $('#certModal').css('display', 'none');
+    });
+
+    // 3. Optional: Close the modal if the user clicks anywhere on the dark background
+    $('#certModal').on('click', function(e) {
+        if (e.target.id === 'certModal') {
+            $('#certModal').css('display', 'none');
+        }
+    });
+
+    // --- Draggable Infinite Marquee Logic ---
+    const wrapper = document.querySelector('.cert-marquee-wrapper');
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+    let isAutoScrolling = true;
+    
+    // Adjust this number to make the auto-scroll faster or slower!
+    let scrollSpeed = 0.4; 
+
+    // 1. Auto-Scroll Function
+    function autoScroll() {
+        if (isAutoScrolling) {
+            wrapper.scrollLeft += scrollSpeed;
+            
+            // The Infinite Loop Magic: 
+            // If we've scrolled exactly halfway (the end of the first set of certificates), 
+            // instantly jump back to 0. Because the sets are identical, it is invisible to the user!
+            if (wrapper.scrollLeft >= (wrapper.scrollWidth / 2)) {
+                wrapper.scrollLeft = 0;
+            }
+        }
+        requestAnimationFrame(autoScroll);
+    }
+    autoScroll(); // Start the engine
+
+    // 2. Pause when the user hovers over it to read or click a button
+    wrapper.addEventListener('mouseenter', () => isAutoScrolling = false);
+    wrapper.addEventListener('mouseleave', () => {
+        if (!isDown) isAutoScrolling = true;
+    });
+
+    // 3. Mouse Dragging Logic for Desktop
+    wrapper.addEventListener('mousedown', (e) => {
+        isDown = true;
+        isAutoScrolling = false;
+        wrapper.classList.add('grabbing');
+        startX = e.pageX - wrapper.offsetLeft;
+        scrollLeft = wrapper.scrollLeft;
+    });
+
+    wrapper.addEventListener('mouseleave', () => {
+        isDown = false;
+        wrapper.classList.remove('grabbing');
+    });
+
+    wrapper.addEventListener('mouseup', () => {
+        isDown = false;
+        wrapper.classList.remove('grabbing');
+        isAutoScrolling = true; // Resume auto-scrolling after letting go
+    });
+
+    wrapper.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - wrapper.offsetLeft;
+        const walk = (x - startX) * 1.5; // Multiply by 1.5 to make dragging feel responsive
+        wrapper.scrollLeft = scrollLeft - walk;
+    });
+});
