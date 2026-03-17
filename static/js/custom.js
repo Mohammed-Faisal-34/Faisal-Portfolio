@@ -373,3 +373,190 @@ $(document).ready(function() {
         wrapper.scrollLeft = scrollLeft - walk;
     });
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+    
+    // Check if user is on a desktop (disable cool mouse stuff for phones to prevent bugs)
+    const isDesktop = window.matchMedia("(min-width: 992px)").matches;
+
+    if (isDesktop) {
+        // --- 1. Custom Cursor Logic ---
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        
+        cursorDot.style.display = 'block';
+        cursorOutline.style.display = 'block';
+
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+            
+            cursorDot.style.left = `${posX}px`;
+            cursorDot.style.top = `${posY}px`;
+            
+            // Trailing effect for the outline
+            cursorOutline.animate({
+                left: `${posX}px`,
+                top: `${posY}px`
+            }, { duration: 500, fill: "forwards" });
+        });
+
+        // Add hover effect to links, buttons, and cards
+        document.querySelectorAll('a, button, .portfolio-box, .cert-card, .feature-box-1').forEach(el => {
+            el.addEventListener('mouseenter', () => cursorOutline.classList.add('hovering'));
+            el.addEventListener('mouseleave', () => cursorOutline.classList.remove('hovering'));
+        });
+
+        // --- 2. Magnetic Buttons ---
+        const magnetics = document.querySelectorAll('.px-btn, .download-cv-btn');
+        magnetics.forEach((btn) => {
+            btn.addEventListener('mousemove', (e) => {
+                const position = btn.getBoundingClientRect();
+                const x = e.clientX - position.left - position.width / 2;
+                const y = e.clientY - position.top - position.height / 2;
+                // Move button slightly towards the mouse
+                btn.style.transform = `translate(${x * 0.4}px, ${y * 0.4}px)`;
+            });
+            btn.addEventListener('mouseout', () => {
+                btn.style.transform = 'translate(0px, 0px)';
+            });
+        });
+
+        // --- 3. Initialize 3D Glass Tilt Effect ---
+        VanillaTilt.init(document.querySelectorAll(".feature-box-1, .portfolio-box, .cert-card, .testimonial-col"), {
+            max: 10,           // Maximum tilt rotation (degrees)
+            speed: 400,        // Speed of the enter/exit transition
+            glare: true,       // Enables the shiny glass glare effect
+            "max-glare": 0.15, // Opacity of the glare
+            scale: 1.02        // Slight zoom on hover
+        });
+    }
+
+    // --- 4. Interactive Particle Network (The Void Theme) ---
+    if(document.getElementById('particles-js')) {
+        particlesJS("particles-js", {
+            "particles": {
+                "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#f71735" }, // Your red accent
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.4, "random": false },
+                "size": { "value": 3, "random": true },
+                "line_linked": { "enable": true, "distance": 150, "color": "#f71735", "opacity": 0.2, "width": 1 },
+                "move": { "enable": true, "speed": 1.5, "direction": "none", "random": true, "out_mode": "out" }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": { "enable": true, "mode": "grab" }, // Connects particles to mouse
+                    "onclick": { "enable": true, "mode": "push" }, // Adds more particles on click
+                    "resize": true
+                },
+                "modes": {
+                    "grab": { "distance": 180, "line_linked": { "opacity": 0.8 } },
+                    "push": { "particles_nb": 3 }
+                }
+            },
+            "retina_detect": true
+        });
+    }
+
+    // --- 5. Scroll Reveal Animations ---
+    // This watches elements and triggers them when they appear in the viewport
+    const revealOptions = {
+        threshold: 0.15, // Trigger when 15% of the element is visible
+        rootMargin: "0px 0px -50px 0px" 
+    };
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target); // Stop observing once revealed
+            }
+        });
+    }, revealOptions);
+
+// Grab everything we want to animate on scroll
+    const elementsToReveal = document.querySelectorAll('.section-title, .feature-box-1, .portfolio-box, .about-text, .tag-text, .resume-box li');
+    
+    elementsToReveal.forEach(el => {
+        // If the element is a portfolio card, give it the 3D animation
+        if (el.classList.contains('portfolio-box')) {
+            el.classList.add('reveal-3d');
+        } 
+        // Otherwise, give it the standard slide-up animation
+        else {
+            el.classList.add('reveal-up'); 
+        }
+        
+        revealObserver.observe(el); // Tell the observer to watch it
+    });
+
+    // --- 6. Smooth Inertia Scrolling (Lenis) ---
+    const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Smooth easing curve
+        direction: 'vertical',
+        gestureDirection: 'vertical',
+        smooth: true,
+        mouseMultiplier: 1,
+        smoothTouch: false, // Keep native touch scrolling on phones
+    });
+
+    function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // --- 7. Dynamic Typing Effect ---
+    if (document.getElementById('type-it')) {
+        new Typed('#type-it', {
+            strings: [
+                'Full-Stack Developer.', 
+                'Marketing Specialist.', 
+                'Graphic Designer.', 
+                'Prompt Engineering.'
+            ],
+            typeSpeed: 60,
+            backSpeed: 40,
+            backDelay: 1500,
+            loop: true,
+            cursorChar: '|' // The blinking cursor
+        });
+    }
+
+    // --- 8. Simple Parallax Effect ---
+    const parallaxImages = document.querySelectorAll('.parallax-img');
+    
+    window.addEventListener('scroll', () => {
+        let scrollY = window.pageYOffset;
+        
+        parallaxImages.forEach(img => {
+            // Calculate how far the image is from the top of the screen
+            const speed = 0.15; // Lower is slower
+            // Move the image slightly down on the Y axis as you scroll
+            img.style.transform = `scale(1.15) translateY(${scrollY * speed}px)`;
+        });
+    });
+
+    // --- 9. Vercel-Style Spotlight Effect ---
+    const handleOnMouseMove = e => {
+        const { currentTarget: target } = e;
+        
+        // Get the mouse coordinates relative to the specific card
+        const rect = target.getBoundingClientRect(),
+              x = e.clientX - rect.left,
+              y = e.clientY - rect.top;
+
+        // Feed those coordinates into the CSS variables!
+        target.style.setProperty("--mouse-x", `${x}px`);
+        target.style.setProperty("--mouse-y", `${y}px`);
+    }
+
+    // Attach the tracker to every certificate card
+    for(const card of document.querySelectorAll(".cert-card")) {
+        card.onmousemove = e => handleOnMouseMove(e);
+    }
+    
+});

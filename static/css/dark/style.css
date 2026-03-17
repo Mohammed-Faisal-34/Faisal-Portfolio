@@ -1081,9 +1081,45 @@ body {
     border-bottom: 2px solid #f71735;
 }
 
+/* Update the alignment to make it look like a sleek ID card */
 .cert-info {
-    padding: 20px;
-    text-align: center;
+    padding: 20px 20px 25px 20px;
+    text-align: left; /* Shifted from center to left */
+    position: relative;
+    z-index: 2;
+}
+
+/* Magically injects a high-tech decoration into the empty right space */
+.cert-info::after {
+    content: "/// VERIFIED.REC"; /* You can change this text to anything! */
+    position: absolute;
+    bottom: 35px;
+    right: 20px;
+    font-family: "Courier New", monospace; /* Gives it a techy/code vibe */
+    font-size: 10px;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.15); /* Faint, subtle gray */
+    letter-spacing: 2px;
+    transition: color 0.4s ease, transform 0.4s ease;
+}
+
+/* Makes the decoration glow red and slide slightly when you hover the card */
+.cert-card:hover .cert-info::after {
+    color: #f71735;
+    transform: translateX(-5px);
+}
+
+/* Sliding Arrow on Button Hover */
+.cert-btn::after {
+    content: " \2192";
+    opacity: 0;
+    transition: opacity 0.3s ease, margin-left 0.3s ease;
+    margin-left: -10px;
+}
+
+.cert-btn:hover::after {
+    opacity: 1;
+    margin-left: 5px;
 }
 
 .cert-info h6 {
@@ -1169,3 +1205,340 @@ body {
     from {transform: scale(0.9); opacity: 0;}
     to {transform: scale(1); opacity: 1;}
 }
+
+/* =========================================
+   Ultimate Interactive Package CSS
+========================================= */
+
+/* --- 1. Custom Cursor --- */
+/* Hide default cursor on desktop */
+@media (min-width: 992px) {
+    body, a, button, input, textarea { 
+        cursor: none !important; 
+    }
+}
+
+.cursor-dot, .cursor-outline {
+    position: fixed;
+    top: 0; 
+    left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 99999;
+    pointer-events: none; /* Let clicks pass through it */
+    display: none; /* Hidden by default, activated via JS on desktop */
+}
+
+.cursor-dot {
+    width: 8px; 
+    height: 8px;
+    background-color: #f71735;
+}
+
+.cursor-outline {
+    width: 40px; 
+    height: 40px;
+    border: 2px solid rgba(247, 23, 53, 0.5);
+    transition: width 0.2s ease-out, height 0.2s ease-out, background-color 0.2s ease-out;
+}
+
+/* When hovering over clickable items */
+.cursor-outline.hovering {
+    width: 65px; 
+    height: 65px;
+    background-color: rgba(247, 23, 53, 0.1);
+    border-color: #f71735;
+}
+
+/* --- 2. Magnetic Buttons & 3D Cards --- */
+/* Smooth return to center when mouse leaves */
+.px-btn, .download-cv-btn { 
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.3s ease; 
+    will-change: transform;
+}
+/* Ensure 3D cards look smooth */
+.feature-box-1, .portfolio-box, .cert-card {
+    transform-style: preserve-3d;
+}
+
+/* --- 3. Scroll Reveal Animations --- */
+.reveal-up {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+}
+
+.reveal-up.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Parallax Image Setup --- */
+.about-left, .portfolio-img {
+    overflow: hidden; /* Keeps the moving image contained */
+}
+.parallax-img {
+    will-change: transform;
+    transform: scale(1.15); /* Make the image slightly larger so it has room to move inside its box */
+    transition: transform 0.1s linear;
+}
+
+/* =========================================
+   Premium Certificate Upgrades
+========================================= */
+
+/* --- 1. Cinematic Image Zoom --- */
+.cert-card img {
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s ease;
+    filter: brightness(0.75); /* Dims the image slightly when idle */
+}
+
+.cert-card:hover img {
+    transform: scale(1.08); /* Cinematic zoom in */
+    filter: brightness(1.1); /* Brightens up beautifully */
+}
+
+/* --- 2. Verified Badge Styles --- */
+.verified-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: rgba(1, 22, 39, 0.7); /* Dark semi-transparent background */
+    backdrop-filter: blur(6px);
+    color: #00d26a; /* Professional trust/verified green */
+    border: 1px solid rgba(0, 210, 106, 0.3);
+    padding: 6px 12px;
+    border-radius: 30px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    z-index: 3;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.verified-badge i {
+    font-size: 14px;
+}
+
+/* --- 3. Vercel-Style Spotlight Glow --- */
+.cert-card {
+    position: relative;
+    /* Ensure content stays above the glow effect */
+}
+
+.cert-card::before,
+.cert-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+/* The subtle red glow inside the card */
+.cert-card::before {
+    background: radial-gradient(
+        600px circle at var(--mouse-x) var(--mouse-y), 
+        rgba(247, 23, 53, 0.08),
+        transparent 40%
+    );
+    z-index: 1;
+}
+
+/* The bright white/red border highlight that follows the mouse */
+.cert-card::after {
+    padding: 2px; /* Border thickness */
+    background: radial-gradient(
+        400px circle at var(--mouse-x) var(--mouse-y), 
+        rgba(247, 23, 53, 0.6), 
+        transparent 40%
+    );
+    z-index: 0;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+.cert-card:hover::before,
+.cert-card:hover::after {
+    opacity: 1;
+}
+
+/* Pushes the actual text and buttons above the glow layers */
+.cert-info {
+    position: relative;
+    z-index: 2;
+}
+
+/* =========================================
+   3D Portfolio Scroll Cascade
+========================================= */
+
+/* 1. We must give the parent container 'perspective' to create 3D depth */
+.portfolio-section .lightbox-gallery {
+    perspective: 1500px;
+    transform-style: preserve-3d;
+}
+
+/* 2. The 3D starting state (hidden, pushed back, and rotated away) */
+.reveal-3d {
+    opacity: 0;
+    transform: translateY(120px) translateZ(-200px) rotateX(35deg);
+    transform-origin: top center;
+    /* A custom cubic-bezier creates a highly premium "snap" into place */
+    transition: opacity 0.8s ease, transform 1s cubic-bezier(0.15, 0.85, 0.3, 1.15);
+    will-change: transform, opacity;
+    box-shadow: 0 30px 50px rgba(0,0,0,0.5); /* Deep shadow while floating */
+}
+
+/* 3. The resting state (fully visible, perfectly flat) */
+.reveal-3d.active {
+    opacity: 1;
+    transform: translateY(0) translateZ(0) rotateX(0deg);
+    box-shadow: none; /* Removes the deep shadow as it "lands" on the page */
+}
+
+/* =========================================
+   2. The 5-Laser Cyber Grid Upgrade
+========================================= */
+
+/* The wrapper that holds all lasers behind your cards */
+.cyber-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1; 
+    overflow: hidden;
+}
+
+/* Base style for all lasers */
+.cyber-line {
+    position: absolute;
+    box-shadow: 0 0 15px 2px rgba(247, 23, 53, 0.4);
+}
+
+.cyber-line.vertical {
+    background: linear-gradient(to bottom, transparent, rgba(247, 23, 53, 0.9), #fff, rgba(247, 23, 53, 0.9), transparent);
+}
+
+.cyber-line.horizontal {
+    background: linear-gradient(to right, transparent, rgba(247, 23, 53, 0.9), #fff, rgba(247, 23, 53, 0.9), transparent);
+}
+
+/* Laser 1: Shoots down on the left */
+.line-1 { width: 1px; height: 60%; left: 15%; top: -60%; animation: laserDown 7s ease-in-out infinite; }
+
+/* Laser 4: Shoots across the bottom (Left to Right) */
+.line-4 { height: 1px; width: 50%; bottom: 18%; left: -50%; animation: laserAcrossAlt 9s ease-in-out infinite 1s; }
+
+/* Laser 5: Shoots UP from the bottom-middle */
+.line-5 { width: 1px; height: 45%; left: 60%; bottom: -60%; animation: laserUp 8s ease-in-out infinite 4s; }
+
+
+/* --- The Animation Keyframes --- */
+@keyframes laserDown {
+    0% { top: -60%; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 110%; opacity: 0; }
+}
+
+@keyframes laserUp {
+    0% { bottom: -60%; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { bottom: 110%; opacity: 0; }
+}
+
+@keyframes laserAcross {
+    0% { right: -40%; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { right: 110%; opacity: 0; }
+}
+
+@keyframes laserAcrossAlt {
+    0% { left: -50%; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { left: 110%; opacity: 0; }
+}
+
+/* Forces the portfolio projects to sit IN FRONT of the lasers */
+.portfolio-section .container{
+    position: relative;
+    z-index: 10 !important; 
+}
+
+/* Pushes the lasers safely into the background */
+.cyber-lines {
+    z-index: 1 !important; 
+}
+
+/* =========================================
+   Premium Testimonials Upgrade
+========================================= */
+
+.testimonial-col {
+    position: relative;
+    background: rgba(255, 255, 255, 0.02) !important; /* Deeper glass look */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-left: 3px solid #f71735 !important; /* Sleek red accent line */
+    overflow: hidden;
+    z-index: 1;
+    transform-style: preserve-3d;
+}
+
+/* Giant Background Quotation Mark */
+.testimonial-col::after {
+    content: "\201D"; /* Unicode for right double quote */
+    position: absolute;
+    font-size: 220px;
+    color: rgba(247, 23, 53, 0.05); /* Very faint red */
+    top: 20px;
+    right: 20px;
+    line-height: 1;
+    font-family: Georgia, serif;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Make the text feel more like a quote */
+.testimonial-col p {
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.85) !important;
+    line-height: 1.8;
+    position: relative;
+    z-index: 2;
+}
+
+/* Give the Avatar a premium glow ring */
+.testimonial-col .img {
+    border: 2px solid rgba(247, 23, 53, 0.6);
+    padding: 3px;
+    background: transparent;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.testimonial-col:hover .img {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px rgba(247, 23, 53, 0.4);
+}
+
+/* Ensure the info text sits above the watermark */
+.tc-info {
+    position: relative;
+    z-index: 2;
+}
+

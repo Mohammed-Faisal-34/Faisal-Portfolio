@@ -16,11 +16,17 @@
     <!-- theme css -->
     <link href="static/css/dark/style.css" rel="stylesheet">
     <link rel="stylesheet" href="static/plugin/owl-carousel/css/owl.carousel.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
 
 </head>
 <!-- Body Start -->
 
 <body class="dark-bg">
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
     <!-- page loading -->
     <div id="loading">
         <div class="load-circle"><span class="one"></span></div>
@@ -59,31 +65,27 @@
     <!-- End Header -->
     <main>
         <!-- section -->
-        <section id="home" data-scroll-index="0" class="home-banner">
-            <div class="social-share nav d-none d-lg-flex">
-                <a href="https://www.facebook.com/share/1FdmRyuuid/">
-                    <i class="bi bi-facebook"></i>
-                </a>
-                <a href="https://x.com/X_Faisal58?t=l44Ciq0fOyJm12BMrrdRIw&s=09">
-                    <i class="bi bi-twitter"></i>
-                </a>
-                <a href="https://www.instagram.com/5aisal.me?igsh=dmY3aWQ2M2pqYTI4">
-                    <i class="bi bi-instagram"></i>
-                </a>
-                <a href="https://www.linkedin.com/in/mohammed-faisal-169824280?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app">
-                    <i class="bi bi-linkedin"></i>
-                </a>
+<section id="home" data-scroll-index="0" class="home-banner" style="position: relative; overflow: hidden;">
+            
+            <div id="particles-js" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 0;"></div>
+            
+            <div class="social-share nav d-none d-lg-flex" style="z-index: 2;">
+                <a href="https://www.facebook.com/share/1FdmRyuuid/"><i class="bi bi-facebook"></i></a>
+                <a href="https://x.com/X_Faisal58?t=l44Ciq0fOyJm12BMrrdRIw&s=09"><i class="bi bi-twitter"></i></a>
+                <a href="https://www.instagram.com/5aisal.me?igsh=dmY3aWQ2M2pqYTI4"><i class="bi bi-instagram"></i></a>
+                <a href="https://www.linkedin.com/in/mohammed-faisal-169824280..."><i class="bi bi-linkedin"></i></a>
             </div>
-            <div class="placeholder">
+            
+            <div class="placeholder" style="z-index: 1;">
                 <h5>F<br />o<br />c<br />u<br />s<br /></h5>
             </div>
-            <div class="container">
+            <div class="container" style="position: relative; z-index: 1;">
                 <div class="row min-vh-100 align-items-center">
                     <div class="col-lg-6">
                         <div class="typo-box">
                             <h6>Hi There, I'm</h6>
                             <h1 class="font-alt">Mohammed Faisal</h1>
-                            <h2>Full-Stack Web Developer & Marketing Specialist<span id="type-it"></span></h2>
+                            <h2>I am a <span id="type-it" style="color: #f71735;"></span></h2>
                             <p>I am a final-year BSc Creative Computing student with 3+ years of experience in marketing leadership and full-stack web development. I specialize in building user-focused digital solutions, leading projects, and managing cross-functional teams. I combine technical expertise with strategic marketing to drive brand growth, improve user engagement, and deliver impactful results.</p>
                             <div class="btn-bar">
                                 <a class="px-btn px-btn-white" href="#contactus">Contact Me</a>
@@ -196,7 +198,7 @@
                     </div>
                     <div class="col-lg-5">
                         <div class="about-left">
-                            <img src="static/img/standing_pic1.png" title="" alt="">
+                            <img src="static/img/standing_pic1.png" class="parallax-img" title="" alt="">
                         </div>
                     </div>
                 </div>
@@ -379,6 +381,13 @@
     <div class="placeholder">
         <h5>portfolio</h5>
     </div>
+
+    <div class="cyber-lines">
+                <div class="cyber-line vertical line-1"></div>
+                <div class="cyber-line horizontal line-4"></div>
+                <div class="cyber-line vertical line-5"></div>
+            </div>
+
     <div class="container">
         <div class="row justify-content-center mb-5">
             <div class="col-lg-6 text-center">
@@ -676,6 +685,7 @@
                 <div class="cert-marquee-track">
                     
                     <div class="cert-card">
+                        <div class="verified-badge"><i class="bi bi-patch-check-fill"></i> Verified</div>
                         <img src="static/img/GDG-Certificate-Ai-Agents.png" alt="GDG AI Certificate">
                         <div class="cert-info">
                             <h6>Building AI Agents</h6>
@@ -685,6 +695,7 @@
                     </div>
 
                     <div class="cert-card">
+                        <div class="verified-badge"><i class="bi bi-patch-check-fill"></i> Verified</div>
                         <img src="static/img/campaign.png" alt="Certificate 2">
                         <div class="cert-info">
                             <h6>Scale Creative Campaigns</h6>
@@ -694,6 +705,7 @@
                     </div>
 
                     <div class="cert-card">
+                        <div class="verified-badge"><i class="bi bi-patch-check-fill"></i> Verified</div>
                         <img src="static/img/prime-certi.png" alt="Certificate 3">
                         <div class="cert-info">
                             <h6>Prime Marketing Agency</h6>
@@ -703,6 +715,7 @@
                     </div>
 
                     <div class="cert-card">
+                        <div class="verified-badge"><i class="bi bi-patch-check-fill"></i> Verified</div>
                         <img src="static/img/ML-certi.png" alt="Certificate 4">
                         <div class="cert-info">
                             <h6>Machine Learning</h6>
@@ -712,6 +725,7 @@
                     </div>
                     
                     <div class="cert-card">
+                        <div class="verified-badge"><i class="bi bi-patch-check-fill"></i> Verified</div>
                         <img src="static/img/Justyta-certif.png" alt="Certificate 5">
                         <div class="cert-info">
                             <h6>Experience Certificate</h6>
@@ -721,6 +735,7 @@
                     </div>
 
                     <div class="cert-card">
+                        <div class="verified-badge"><i class="bi bi-patch-check-fill"></i> Verified</div>
                         <img src="static/img/GDG-Certificate-DreamVSReality.png" alt="GDG AI Certificate">
                         <div class="cert-info">
                             <h6>Dream VS Reality</h6>
@@ -730,6 +745,7 @@
                     </div>
 
                     <div class="cert-card">
+                        <div class="verified-badge"><i class="bi bi-patch-check-fill"></i> Verified</div>
                         <img src="static/img/marketing-cert.png" alt="Certificate 2">
                         <div class="cert-info">
                             <h6>Shopify E-Commerce Marketing Strategy</h6>
@@ -739,6 +755,7 @@
                     </div>
 
                     <div class="cert-card">
+                        <div class="verified-badge"><i class="bi bi-patch-check-fill"></i> Verified</div>
                         <img src="static/img/Ai certi.png" alt="Certificate 3">
                         <div class="cert-info">
                             <h6>Ai In Classroom</h6>
@@ -748,6 +765,7 @@
                     </div>
 
                     <div class="cert-card">
+                        <div class="verified-badge"><i class="bi bi-patch-check-fill"></i> Verified</div>
                         <img src="static/img/promping certi.png" alt="Certificate 5">
                         <div class="cert-info">
                             <h6>Prompt Engineering For AI</h6>
@@ -757,6 +775,7 @@
                     </div>
 
                     <div class="cert-card">
+                        <div class="verified-badge"><i class="bi bi-patch-check-fill"></i> Verified</div>
                         <img src="static/img/tkinter.png" alt="Certificate 4">
                         <div class="cert-info">
                             <h6>Python Tkinter</h6>
