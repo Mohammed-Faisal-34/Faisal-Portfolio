@@ -1570,3 +1570,20 @@ body {
         top: 20px !important;
     }
 }
+
+/* =========================================
+   Mobile Fix: Disable Parallax to Fix Gaps
+========================================= */
+
+@media (max-width: 991px) {
+    /* 1. Stop the Javascript from pushing the image down */
+    .parallax-img {
+        transform: none !important;
+        transition: none !important;
+    }
+    
+    /* 2. Add a perfect, static space between the text and the photo */
+    .about-left {
+        margin-top: 40px !important;
+    }
+}
