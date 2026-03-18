@@ -1484,6 +1484,12 @@ body {
     z-index: 1 !important; 
 }
 
+@media (max-width: 991px) {
+    .cyber-lines {
+        display: none !important;
+    }
+}
+
 /* =========================================
    Premium Testimonials Upgrade
 ========================================= */
@@ -1542,3 +1548,25 @@ body {
     z-index: 2;
 }
 
+@media (max-width: 991px) {
+    /* 1. target the main container to reduce top padding */
+    .section {
+        padding-top: 50px !important;
+        padding-bottom: 50px !important;
+    }
+
+    /* 2. target the about section specifically for extra control */
+    .about-section {
+        padding-top: 40px !important;
+    }
+
+    /* 3. Force the about-row tags (Tools, Skills) to stack closer */
+    .about-row {
+        margin-bottom: 20px !important;
+    }
+
+    /* 4. target the placeholder 'About' text to sit higher */
+    .placeholder {
+        top: 20px !important;
+    }
+}
