@@ -1224,7 +1224,7 @@ body {
     left: 0;
     transform: translate(-50%, -50%);
     border-radius: 50%;
-    z-index: 99999;
+    z-index: 9999999 !important;
     pointer-events: none; /* Let clicks pass through it */
     display: none; /* Hidden by default, activated via JS on desktop */
 }
@@ -1586,4 +1586,204 @@ body {
     .about-left {
         margin-top: 40px !important;
     }
+}
+
+/* =========================================
+   AI Gallery Pinterest Grid & Lightbox
+========================================= */
+
+.ai-masonry-grid {
+    column-count: 4;
+    column-gap: 20px;
+    padding-bottom: 50px;
+}
+
+@media (max-width: 1200px) { .ai-masonry-grid { column-count: 3; } }
+@media (max-width: 991px) { .ai-masonry-grid { column-count: 2; } }
+@media (max-width: 576px) { .ai-masonry-grid { column-count: 1; } }
+
+.ai-masonry-item {
+    display: inline-block; /* <-- THIS IS CRITICAL FOR PINTEREST STYLE */
+    width: 100%;           /* <-- THIS IS CRITICAL */
+    break-inside: avoid;
+    margin-bottom: 20px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.05); 
+    transform-style: preserve-3d;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s ease;
+}
+
+.ai-masonry-item img {
+    width: 100%;
+    display: block;
+    border-radius: 12px;
+    transition: filter 0.4s ease;
+}
+
+.ai-masonry-grid {
+    position: relative; /* Add this if it's not already there */
+}
+
+/* This creates the fade-out effect at the bottom */
+.ai-masonry-grid::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 250px; /* Adjust this to make the fade taller or shorter */
+    background: linear-gradient(to bottom, rgba(1, 22, 39, 0), rgba(1, 22, 39, 1)); 
+    pointer-events: none; /* Ensures you can still click images behind the fade */
+}
+
+.ai-masonry-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 30px rgba(247, 23, 53, 0.2);
+}
+
+.ai-masonry-item:hover img {
+    filter: brightness(0.7);
+}
+
+/* Red Hover Overlay Icon */
+.ai-item-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.ai-masonry-item:hover .ai-item-overlay {
+    opacity: 1;
+}
+
+.ai-item-overlay i {
+    color: #fff;
+    font-size: 24px;
+    background: #f71735;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: scale(0.5);
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+.ai-masonry-item:hover .ai-item-overlay i {
+    transform: scale(1);
+}
+
+/* Lightbox Modal */
+.ai-lightbox {
+    display: none; 
+    position: fixed;
+    z-index: 999999;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(1, 22, 39, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    justify-content: center;
+    align-items: center;
+}
+
+.ai-lightbox-content {
+    max-width: 90%;
+    max-height: 90vh;
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(247, 23, 53, 0.3);
+    animation: lbZoomIn 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    object-fit: contain;
+}
+
+.ai-lightbox-close {
+    position: absolute;
+    top: 25px;
+    right: 40px;
+    color: #fff;
+    font-size: 50px;
+    font-weight: 300;
+    cursor: pointer;
+    transition: 0.3s;
+    z-index: 2;
+}
+
+.ai-lightbox-close:hover {
+    color: #f71735;
+    transform: rotate(90deg);
+}
+
+@keyframes lbZoomIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* =========================================
+   AI Gallery Fade & Typography Footer
+========================================= */
+
+.ai-gallery-footer {
+    position: relative;
+    text-align: center;
+    padding: 120px 0 0; 
+    margin-top: -150px; /* Pulls the footer UP to cover the empty grid space */
+    z-index: 5;
+}
+
+/* The dark fade-out effect */
+.ai-fade-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 250px;
+    /* Fades from transparent to your exact dark blue background (#011627) */
+    background: linear-gradient(to bottom, rgba(1, 22, 39, 0) 0%, rgba(1, 22, 39, 1) 80%);
+    pointer-events: none; /* Lets you still click images behind the fade */
+    z-index: -1;
+}
+
+/* The giant ghost text */
+.ai-huge-text {
+    font-size: 9vw; /* Scales massively with the screen width */
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 0.9;
+    letter-spacing: 5px;
+    color: transparent; /* Makes the inside of the letters invisible */
+    -webkit-text-stroke: 2px rgba(255, 255, 255, 0.08); /* Faint white outline */
+    margin: 0;
+    transition: all 0.5s ease;
+}
+
+/* Your signature red accent for the bottom word */
+.ai-huge-text span {
+    color: #f71735;
+    -webkit-text-stroke: 0;
+    opacity: 0.9;
+}
+
+.ai-footer-sub {
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 18px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 20px;
+}
+
+/* Mobile adjustments for the huge text */
+@media (max-width: 768px) {
+    .ai-gallery-footer { margin-top: -80px; }
+    .ai-huge-text { font-size: 14vw; -webkit-text-stroke: 1px rgba(255, 255, 255, 0.1); }
+    .ai-footer-sub { font-size: 14px; }
 }
