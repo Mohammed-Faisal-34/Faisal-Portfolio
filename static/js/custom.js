@@ -514,8 +514,7 @@ document.addEventListener("DOMContentLoaded", function() {
         new Typed('#type-it', {
             strings: [
                 'Full-Stack Developer.', 
-                'Marketing Specialist.', 
-                'Graphic Designer.', 
+                'Marketing Specialist.',  
                 'AI Prompt Engineering.'
             ],
             typeSpeed: 60,
