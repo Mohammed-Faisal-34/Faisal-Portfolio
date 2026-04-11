@@ -10,8 +10,9 @@
   /* ---------------------------------------------- /*
    * Pre load
   /* ---------------------------------------------- */
-  NAY.PreLoad = function() {
-    document.getElementById("loading").style.display = "none"; 
+NAY.PreLoad = function() {
+    // Fades out smoothly over 800 milliseconds
+    $("#loading").fadeOut(800); 
   }
 
     /*--------------------
