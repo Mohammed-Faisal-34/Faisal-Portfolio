@@ -516,7 +516,7 @@ document.addEventListener("DOMContentLoaded", function() {
             strings: [
                 'Full-Stack Developer.', 
                 'Marketing Specialist.',  
-                'AI Prompt Engineering.'
+                'AI Prompt Engineer.'
             ],
             typeSpeed: 60,
             backSpeed: 40,
